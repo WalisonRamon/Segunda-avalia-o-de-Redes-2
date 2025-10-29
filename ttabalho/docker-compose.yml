@@ -1,0 +1,46 @@
+services:
+  server-seq:
+    build:
+      context: .
+      dockerfile: Dockerfile.servidor
+    container_name: servidor_seq
+    networks:
+      mynet:
+        ipv4_address: 60.45.0.10
+    ports:
+      - "8080:80" # mapeia porta host 8080 -> container 80 (útil para testes locais)
+    environment:
+      - MODE=sequential
+    command: ["python3", "servidor_sequencial.py"]
+
+  server-conc:
+    build:
+      context: .
+      dockerfile: Dockerfile.servidor
+    container_name: servidor_conc
+    networks:
+      mynet:
+        ipv4_address: 60.45.0.11
+    ports:
+      - "8081:80"
+    environment:
+      - MODE=concurrent
+    command: ["python3", "servidor_concorrente.py"]
+
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile.cliente
+    container_name: cliente
+    networks:
+      mynet:
+        ipv4_address: 60.45.0.50
+    # Use 'docker-compose up --scale client=5' para simular múltiplos clientes
+    entrypoint: ["tail", "-f", "/dev/null"] # container inativo: execuções via docker exec
+
+networks:
+  mynet:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 60.45.0.0/24
