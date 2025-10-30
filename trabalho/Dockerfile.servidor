@@ -1,6 +1,6 @@
 FROM python:3.11-slim
 WORKDIR /app
-COPY servidor_sequencial.py servidor_concorrente.py cliente.py test_runner.py graficos.py requirements.txt /app/
+COPY servidor_sequencial.py servidor_concorrente.py cliente.py testes.py graficos.py requirements.txt /app/
 RUN mkdir -p /app/www
 COPY www /app/www
 EXPOSE 80
