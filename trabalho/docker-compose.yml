@@ -8,7 +8,7 @@ services:
       mynet:
         ipv4_address: 60.45.0.10
     ports:
-      - "8080:80" # mapeia porta host 8080 -> container 80 (útil para testes locais)
+      - "8080:80"
     environment:
       - MODE=sequential
     command: ["python3", "servidor_sequencial.py"]
@@ -22,7 +22,7 @@ services:
       mynet:
         ipv4_address: 60.45.0.11
     ports:
-      - "8081:80"
+      - "8081:8080"
     environment:
       - MODE=concurrent
     command: ["python3", "servidor_concorrente.py"]
@@ -35,8 +35,7 @@ services:
     networks:
       mynet:
         ipv4_address: 60.45.0.50
-    # Use 'docker-compose up --scale client=5' para simular múltiplos clientes
-    entrypoint: ["tail", "-f", "/dev/null"] # container inativo: execuções via docker exec
+    entrypoint: ["tail", "-f", "/dev/null"]
 
 networks:
   mynet:

@@ -1,9 +1,0 @@
-# Dockerfile.server
-FROM python:3.11-slim
-WORKDIR /app
-COPY servidor_sequencial.py servidor_concorrente.py cliente.py test_runner.py plot_results.py requirements.txt /app/
-# Se desejar usar o modo concorrente por padrão, altere o ENTRYPOINT no docker-compose
-RUN mkdir -p /app/www
-COPY www /app/www
-EXPOSE 80
-CMD ["python3", "servidor_concorrente.py"]

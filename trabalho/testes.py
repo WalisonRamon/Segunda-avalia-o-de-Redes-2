@@ -1,12 +1,3 @@
-#!/usr/bin/env python3
-"""
-test_runner.py
-Executa séries de testes para comparar servidor sequencial x concorrente.
-Este script assume que os servidores já estão rodando (por exemplo em containers)
-e acessíveis por IPs/hosts. Ele chama client.py internamente ou pode usar sockets.
-Gera arquivos CSV com latências e um resumo (média/desvio).
-"""
-
 import subprocess
 import statistics
 import argparse
@@ -53,8 +44,8 @@ def main():
     parser.add_argument('--path', default='/')
     parser.add_argument('--runs', type=int, default=10, help='Executions per scenario (>=10)')
     parser.add_argument('--requests', type=int, default=50, help='Requests per run')
-    parser.add_argument('--matricula', default='20219015499')
-    parser.add_argument('--nome', default='Seu Nome')
+    parser.add_argument('--matricula', default='20229036045')
+    parser.add_argument('--nome', default='Walison')
     parser.add_argument('--outdir', default='results')
     args = parser.parse_args()
 

@@ -1,11 +1,3 @@
-#!/usr/bin/env python3
-"""
-client.py
-Envia N requisições HTTP GET para um servidor e mede RTT por requisição.
-Uso:
-    python3 client.py --host 54.99.0.2 --port 80 --path /index.html --requests 100
-"""
-
 import socket
 import time
 import argparse
@@ -17,7 +9,6 @@ def compute_x_custom_id(matricula, nome):
 
 def single_request(host, port, path, x_custom_id, timeout=5.0):
     sock = socket.create_connection((host, port), timeout=timeout)
-    # Monta requisição HTTP/1.1 com Host e X-Custom-ID
     req = f"GET {path} HTTP/1.1\r\nHost: {host}\r\nX-Custom-ID: {x_custom_id}\r\nConnection: close\r\n\r\n"
     start = time.time()
     sock.sendall(req.encode('utf-8'))
@@ -53,12 +44,12 @@ def main():
             print(f"[{i+1}/{args.requests}] ERRO: {e}")
             results.append(None)
 
-    # Escreve CSV simples: run_index,latency_seconds
     with open(args.out, 'w') as f:
         f.write("idx,latency\n")
         for i, v in enumerate(results):
             f.write(f"{i},{v if v is not None else ''}\n")
     print(f"[INFO] Resultados salvos em {args.out}")
+
 
 if __name__ == '__main__':
     main()
